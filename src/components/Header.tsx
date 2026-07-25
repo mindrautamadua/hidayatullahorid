@@ -170,7 +170,7 @@ export function Header() {
           scrolled ? "border-line shadow-[0_1px_0_rgba(0,0,0,0.04)]" : "border-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-6 px-5 py-3.5 md:px-6">
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-3 px-5 py-3.5 md:gap-6 md:px-6">
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <Image
@@ -185,7 +185,10 @@ export function Header() {
               <span className="font-serif text-[22px] font-semibold tracking-tight">
                 Hidayatullah
               </span>
-              <span className="mt-0.5 whitespace-nowrap text-[8.5px] font-bold uppercase tracking-[0.14em] text-accent">
+              {/* Hidden on phones so the longer tagline can't push the
+                  hamburger off-screen; the wordmark alone brands the header.
+                  Shown from sm+ where there is ample room. */}
+              <span className="mt-0.5 hidden whitespace-nowrap text-[8.5px] font-bold uppercase tracking-[0.14em] text-accent sm:block">
                 Membangun Peradaban Islam
               </span>
             </span>

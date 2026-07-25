@@ -133,6 +133,28 @@ function pickTerm(post: WpPost): WpTerm | undefined {
   );
 }
 
+// Base filename of a WP upload, ignoring the size suffix (-1024x683) and query.
+function imgBase(url: string): string {
+  return url
+    .split("?")[0]
+    .replace(/-\d+x\d+(?=\.\w+$)/, "")
+    .toLowerCase();
+}
+
+// WordPress' content.rendered often opens with the same photo as the featured
+// media, so the hero image would render twice (hero + first body image). Strip
+// that leading duplicate — but only when it actually matches the featured image.
+function stripLeadFeaturedImage(html: string | undefined, featured?: string) {
+  if (!html || !featured) return html;
+  const lead = html.match(
+    /^\s*(?:<!--[\s\S]*?-->\s*)*(<figure\b[^>]*>[\s\S]*?<\/figure>|<p\b[^>]*>\s*(?:<a\b[^>]*>)?\s*<img\b[^>]*>\s*(?:<\/a>)?\s*<\/p>|(?:<a\b[^>]*>)?\s*<img\b[^>]*>\s*(?:<\/a>)?)/i,
+  );
+  if (!lead) return html;
+  const src = lead[1].match(/<img\b[^>]*\bsrc="([^"]+)"/i);
+  if (!src || imgBase(src[1]) !== imgBase(featured)) return html;
+  return html.slice(lead[0].length);
+}
+
 function mapPost(p: WpPost): FullArticle {
   const media = p._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   const term = pickTerm(p);
@@ -147,7 +169,7 @@ function mapPost(p: WpPost): FullArticle {
     time: relativeTime(p.date),
     dateISO: p.date,
     img: media ?? `https://picsum.photos/seed/hid-${p.slug}/1200/800`,
-    bodyHtml: p.content?.rendered,
+    bodyHtml: stripLeadFeaturedImage(p.content?.rendered, media),
   };
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { animate, useInView, useReducedMotion } from "motion/react";
 
 /* Quiet count-up for the impact stats. Animates only the numeric part of a
@@ -14,7 +14,10 @@ function split(value: string) {
 }
 
 export function CountUp({ value, className }: { value: string; className?: string }) {
-  const parts = split(value);
+  // Memoize so `parts` keeps a stable identity across renders — otherwise the
+  // effect below re-runs on every setDisplay tick and restarts the animation
+  // from 0 forever (the counter never settles on its target).
+  const parts = useMemo(() => split(value), [value]);
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   const reduce = useReducedMotion();
