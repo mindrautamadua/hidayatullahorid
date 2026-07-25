@@ -76,7 +76,7 @@ export default async function RubrikPage({
               {label}
             </h1>
             <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-ink-soft">
-              Kumpulan berita, analisis, dan liputan pilihan dalam rubrik {label} dari redaksi Hidayatullah Media Network.
+              Kumpulan berita, analisis, dan liputan pilihan dalam rubrik {label} dari redaksi Hidayatullah.
             </p>
           </Reveal>
         </header>

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Hidayatullah — Media Network",
+    name: "Hidayatullah — Membangun Peradaban Islam",
     short_name: "Hidayatullah",
     description:
       "Situs resmi Hidayatullah: berita nasional & antarbangsa, hikmah, khutbah Jumat, dan program dakwah, pendidikan, serta kemanusiaan lintas Nusantara.",

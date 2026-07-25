@@ -1,6 +1,6 @@
 // ============================================================
 // Information architecture + fallback content for the
-// Hidayatullah Media Network (hidayatullah.or.id) rebuild.
+// Hidayatullah (hidayatullah.or.id) — official organization site rebuild.
 //
 // Live content is pulled from the or.id WordPress REST API via
 // src/lib/source.ts. The sample data below is a graceful fallback
@@ -16,6 +16,7 @@ export type Article = {
   author: string;
   readTime: number; // minutes
   time: string; // relative label
+  dateISO?: string; // ISO published date (from WP), for schema/SEO
   img: string;
 };
 
@@ -105,6 +106,18 @@ export const mainNav: NavGroup[] = [
   },
   { label: "Pendapat", href: "/rubrik/kajian-dan-opini" },
   { label: "Jaringan", href: "/jaringan" },
+  {
+    label: "Layanan",
+    href: "/layanan",
+    items: [
+      { label: "Belajar", href: "/layanan#belajar", desc: "Kampus, LMS, pustaka" },
+      { label: "Beribadah", href: "/layanan#beribadah", desc: "Zakat, wakaf, kajian" },
+      { label: "Bergabung", href: "/layanan#bergabung", desc: "Anggota, relawan, cabang" },
+      { label: "Media & Informasi", href: "/layanan#media", desc: "Berita, TV, podcast" },
+      { label: "Ekonomi Umat", href: "/layanan#ekonomi", desc: "Marketplace, koperasi" },
+      { label: "Katalog Lengkap", href: "/layanan", desc: "Semua layanan digital" },
+    ],
+  },
   { label: "Tawajjuhat", href: "/tawajjuhat" },
 ];
 
@@ -218,6 +231,117 @@ export const tawajjuhatLead = {
   role: "Ketua Umum DPP Hidayatullah",
   href: "/tawajjuhat",
 };
+
+/* ============================================================
+   Digital Capability Catalog (Fase A of the DXP vision).
+   Grouped by user intent, not by app name. Honest about what
+   is live vs. still in development — no vaporware.
+   ============================================================ */
+
+export type ServiceStatus = "live" | "soon" | "internal";
+
+export type DigitalService = {
+  name: string;
+  desc: string;
+  href?: string;
+  status: ServiceStatus;
+  external?: boolean;
+};
+
+export type CapabilityGroup = {
+  id: string;
+  title: string;
+  tagline: string;
+  icon: string; // maps to a Phosphor icon in the page
+  note?: string;
+  services: DigitalService[];
+};
+
+export const serviceCatalog: CapabilityGroup[] = [
+  {
+    id: "belajar",
+    title: "Belajar",
+    tagline: "Menuntut ilmu, dari pesantren hingga layar",
+    icon: "GraduationCap",
+    services: [
+      { name: "Video Dakwah", desc: "Kanal ceramah, kajian, dan dokumenter Islami.", href: "/rubrik/berita-video", status: "live" },
+      { name: "Kampus Digital", desc: "Perkuliahan daring & profil perguruan tinggi Hidayatullah.", status: "soon" },
+      { name: "LMS — Learning Center", desc: "Kelas, modul, dan sertifikasi kader & santri.", status: "soon" },
+      { name: "Perpustakaan Digital", desc: "E-book, jurnal, dan kitab dalam satu pustaka.", status: "soon" },
+    ],
+  },
+  {
+    id: "beribadah",
+    title: "Beribadah",
+    tagline: "Menyempurnakan amal dan menunaikan hak harta",
+    icon: "Mosque",
+    services: [
+      { name: "Zakat, Infak & Sedekah", desc: "Tunaikan ZIS amanah melalui Laznas BMH.", href: "/donasi", status: "live" },
+      { name: "Wakaf Produktif", desc: "Wakaf uang & aset melalui Baitul Wakaf Hidayatullah.", href: "https://bmh.or.id", status: "live", external: true },
+      { name: "Jadwal Kajian", desc: "Agenda kajian & majelis di masjid jaringan.", status: "soon" },
+      { name: "Direktori Masjid", desc: "Temukan masjid & musala binaan terdekat.", status: "soon" },
+    ],
+  },
+  {
+    id: "bergabung",
+    title: "Bergabung",
+    tagline: "Menjadi bagian dari gerakan",
+    icon: "UsersThree",
+    services: [
+      { name: "Keanggotaan (Jamaah)", desc: "Platform komunitas & identitas digital jamaah.", href: "https://jamaah.net", status: "live", external: true },
+      { name: "Relawan & SAR", desc: "Bergabung dalam tim tanggap darurat & kemanusiaan.", href: "/jaringan#sar", status: "live" },
+      { name: "Komunitas", desc: "Halaqah, majelis, dan komunitas minat.", status: "soon" },
+      { name: "Direktori Cabang", desc: "Peta cabang & perwakilan di 34 provinsi.", status: "soon" },
+    ],
+  },
+  {
+    id: "media",
+    title: "Media & Informasi",
+    tagline: "Kabar dan syiar dari sumber tepercaya",
+    icon: "Television",
+    services: [
+      { name: "Berita Resmi", desc: "Kabar organisasi, nasional, dan antarbangsa.", href: "/rubrik/berita", status: "live" },
+      { name: "Portal Media Hidayatullah", desc: "Jurnalisme & liputan mendalam dunia Islam.", href: "https://hidayatullah.com", status: "live", external: true },
+      { name: "Hidayatullah TV", desc: "Kanal video dakwah & dokumenter.", href: "https://www.youtube.com/@hidayatullahtv", status: "live", external: true },
+      { name: "Podcast & Radio", desc: "Kajian audio untuk didengar di mana saja.", status: "soon" },
+    ],
+  },
+  {
+    id: "ekonomi",
+    title: "Ekonomi Umat",
+    tagline: "Kemandirian dan pemberdayaan ekonomi",
+    icon: "Storefront",
+    services: [
+      { name: "Baitut Tamwil", desc: "Koperasi & lembaga keuangan mikro syariah.", status: "soon" },
+      { name: "Marketplace Umat", desc: "Etalase produk pesantren, UMKM, & mitra.", status: "soon" },
+      { name: "UMKM & Wirausaha", desc: "Pembinaan dan jejaring wirausaha jamaah.", status: "soon" },
+    ],
+  },
+  {
+    id: "organisasi",
+    title: "Mengelola Organisasi",
+    tagline: "Layanan internal pengurus & lembaga",
+    icon: "Briefcase",
+    services: [
+      { name: "HRIS / Kepegawaian", desc: "Data SDM, kehadiran, dan pengembangan talenta.", status: "internal" },
+      { name: "Keuangan", desc: "Anggaran, pelaporan, dan konsolidasi lembaga.", status: "internal" },
+      { name: "Persuratan Digital", desc: "Disposisi & arsip surat lintas unit.", status: "internal" },
+      { name: "Manajemen Aset", desc: "Inventaris tanah, bangunan, dan sarana.", status: "internal" },
+    ],
+  },
+  {
+    id: "kecerdasan",
+    title: "Kecerdasan (AI)",
+    tagline: "Asisten cerdas berbasis sumber tepercaya",
+    icon: "Sparkle",
+    note: "Layanan berbasis AI akan hadir dengan pengawasan dewan syariah — setiap jawaban keagamaan dirujuk ke sumber dan ulama, bukan keluaran mesin semata.",
+    services: [
+      { name: "AI Da'i", desc: "Asisten materi dakwah & khutbah.", status: "soon" },
+      { name: "AI Qur'an", desc: "Pencarian ayat, tafsir, dan tematik.", status: "soon" },
+      { name: "AI Konsultasi Syariah", desc: "Tanya-jawab dengan verifikasi ulama.", status: "soon" },
+    ],
+  },
+];
 
 /* ============================================================
    Jaringan / Amal Usaha — the autonomous bodies of the org.

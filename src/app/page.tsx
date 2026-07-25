@@ -9,12 +9,17 @@ import {
   GraduationCap,
   Buildings,
   HandHeart,
+  UsersThree,
+  Handshake,
+  BookOpenText,
 } from "@phosphor-icons/react/dist/ssr";
 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
 import { Reveal } from "@/components/Reveal";
+import { EditionBar } from "@/components/EditionBar";
+import { CountUp } from "@/components/CountUp";
 import { ArticleCard } from "@/components/ArticleCard";
 import {
   programPillars,
@@ -24,6 +29,7 @@ import {
   articleHref,
 } from "@/lib/content";
 import { getHomeData } from "@/lib/source";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 const pillarIcon: Record<string, ComponentType<{ size?: number; weight?: "bold" | "fill" | "regular"; className?: string }>> = {
   dakwah: Mosque,
@@ -32,14 +38,37 @@ const pillarIcon: Record<string, ComponentType<{ size?: number; weight?: "bold" 
   sosial: HandHeart,
 };
 
-const topics = [
-  { label: "Dakwah", href: "/tentang#program" },
-  { label: "Pendidikan", href: "/tentang#program" },
-  { label: "Ekonomi Umat", href: "/rubrik/ekonomi" },
-  { label: "Sosial & Kemanusiaan", href: "/jaringan#bmh" },
-  { label: "Antarbangsa", href: "/rubrik/antarbangsa" },
-  { label: "Hikmah", href: "/rubrik/hikmah" },
+// Persona-based entry paths ("Saya ingin…") — turns the homepage into a
+// user-journey hub rather than a news wall.
+const personas = [
+  { Icon: HandHeart, label: "Berdonasi", desc: "Zakat & sedekah via Laznas BMH", href: "/donasi" },
+  { Icon: GraduationCap, label: "Cari Pesantren", desc: "Pendidikan integral & tahfizh", href: "/jaringan#pendidikan" },
+  { Icon: UsersThree, label: "Bergabung", desc: "Kader, relawan, atau jamaah", href: "/kontak" },
+  { Icon: Handshake, label: "Jadi Mitra", desc: "Kolaborasi program & CSR", href: "/kontak" },
+  { Icon: BookOpenText, label: "Belajar Islam", desc: "Hikmah, kajian, khutbah", href: "/rubrik/hikmah" },
 ];
+
+function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    name: "Hidayatullah",
+    alternateName: SITE_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo-hidayatullah.png`,
+    foundingDate: "1973",
+    foundingLocation: "Gunung Tembak, Balikpapan, Indonesia",
+    description:
+      "Organisasi massa Islam yang bergerak di bidang dakwah, pendidikan, sosial, dan ekonomi umat, berkhidmat lintas Nusantara sejak 1973.",
+    areaServed: "ID",
+    sameAs: [
+      "https://hidayatullah.com",
+      "https://bmh.or.id",
+      "https://www.facebook.com/hidayatullahdotcom",
+      "https://www.youtube.com/@hidayatullahtv",
+    ],
+  };
+}
 
 function SectionHead({ eyebrow, title, href, cta = "Lihat semua" }: { eyebrow: string; title: string; href: string; cta?: string }) {
   return (
@@ -67,11 +96,20 @@ export default async function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()).replace(/</g, "\\u003c") }}
+      />
       <Header />
 
       <main id="main-content">
-        {/* ============ HERO — WEF-style institutional feature ============ */}
-        <section className="mx-auto max-w-[1360px] px-5 pb-4 pt-14 md:px-8 md:pt-20">
+        {/* ============ MASTHEAD — broadsheet dateline ============ */}
+        <div className="pt-6 md:pt-9">
+          <EditionBar />
+        </div>
+
+        {/* ============ HERO — broadsheet feature on an on-brand canvas ============ */}
+        <section className="hero-canvas mx-auto max-w-[1360px] px-5 pb-4 pt-10 md:px-8 md:pt-14">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
             <Reveal className="lg:col-span-6">
               <span className="cat-tag">Situs Resmi · Sejak 1973</span>
@@ -82,6 +120,10 @@ export default async function Home() {
                 Hidayatullah adalah gerakan dakwah dan pendidikan yang tumbuh dari
                 Gunung Tembak, Balikpapan — kini berkhidmat lintas Nusantara melalui
                 jaringan pesantren, lembaga sosial, dan amal usaha.
+              </p>
+              <p className="mt-5 max-w-xl text-[14.5px] font-medium leading-relaxed text-ink">
+                Di sini Anda dapat mengenal gerakannya, mendukung programnya melalui
+                donasi, menemukan pesantren, dan bergabung menjadi bagiannya.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
                 <Link
@@ -115,17 +157,29 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* ============ TOPIC RAIL ============ */}
-        <section className="mx-auto max-w-[1360px] px-5 py-8 md:px-8">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-3 border-y border-line py-5">
-            <span className="mr-2 text-[12px] font-bold uppercase tracking-[0.14em] text-ink-faint">Fokus Kami</span>
-            {topics.map((t) => (
+        {/* ============ PERSONA PATHS — "Saya ingin…" ============ */}
+        <section className="mx-auto max-w-[1360px] px-5 py-10 md:px-8 md:py-14">
+          <div className="mb-6 border-b border-line pb-4">
+            <span className="cat-tag">Mulai dari sini</span>
+            <h2 className="mt-2 font-serif text-[24px] font-semibold tracking-[-0.025em] md:text-[28px]">
+              Saya ingin&hellip;
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {personas.map(({ Icon, label, desc, href }) => (
               <Link
-                key={t.label}
-                href={t.href}
-                className="rounded-full border border-line-strong px-4 py-1.5 text-[13.5px] font-semibold text-ink-soft transition-colors hover:border-accent hover:bg-accent-tint hover:text-accent"
+                key={label}
+                href={href}
+                className="group flex flex-col rounded-[var(--radius-lg)] border border-line bg-paper-raised p-5 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--shadow)]"
               >
-                {t.label}
+                <span className="grid h-11 w-11 place-items-center rounded-[var(--radius)] bg-accent-tint text-accent transition-colors group-hover:bg-accent group-hover:text-accent-ink">
+                  <Icon size={22} weight="fill" />
+                </span>
+                <span className="mt-4 flex items-center gap-1.5 font-serif text-[17px] font-semibold tracking-[-0.01em]">
+                  {label}
+                  <ArrowRight size={14} weight="bold" className="text-accent transition-transform group-hover:translate-x-1" />
+                </span>
+                <span className="mt-1.5 text-[13px] leading-snug text-ink-soft">{desc}</span>
               </Link>
             ))}
           </div>
@@ -183,10 +237,11 @@ export default async function Home() {
           <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4">
             {impactStats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.06}>
-                <div className="border-t-2 border-accent pt-5">
-                  <p className="tnums font-serif text-[46px] font-semibold leading-none tracking-[-0.02em] text-accent md:text-[60px]">
-                    {s.value}
-                  </p>
+                <div className={`border-t-2 pt-5 ${i === 0 ? "border-gold" : "border-accent"}`}>
+                  <CountUp
+                    value={s.value}
+                    className={`tnums block font-serif text-[46px] font-semibold leading-none tracking-[-0.02em] md:text-[60px] ${i === 0 ? "text-gold" : "text-accent"}`}
+                  />
                   <p className="mt-3 text-[13.5px] font-medium text-ink-soft">{s.label}</p>
                 </div>
               </Reveal>
@@ -207,7 +262,7 @@ export default async function Home() {
                       <span className="text-accent">
                         <Icon size={30} weight="fill" />
                       </span>
-                      <span className="tnums font-serif text-[15px] font-semibold text-ink-faint">
+                      <span className="tnums font-serif text-[15px] font-semibold text-gold">
                         0{i + 1}
                       </span>
                     </div>
@@ -282,12 +337,12 @@ export default async function Home() {
         <section className="mx-auto max-w-[1360px] px-5 py-20 md:px-8 md:py-28">
           <Reveal>
             <figure className="mx-auto max-w-4xl">
-              <Quotes size={40} weight="fill" className="text-accent/40" />
+              <Quotes size={40} weight="fill" className="text-gold/60" />
               <blockquote className="mt-6 font-serif text-[27px] font-medium leading-[1.32] tracking-[-0.02em] md:text-[40px]">
                 {tawajjuhatLead.quote}
               </blockquote>
               <figcaption className="mt-8 flex items-center gap-4">
-                <span className="h-px w-12 bg-accent" />
+                <span className="h-px w-12 bg-gold" />
                 <span>
                   <span className="block font-serif text-[17px] font-semibold">{tawajjuhatLead.author}</span>
                   <span className="block text-[13.5px] text-ink-faint">{tawajjuhatLead.role}</span>

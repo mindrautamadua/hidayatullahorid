@@ -86,7 +86,7 @@ function NavGroup({
         href={group.href}
         aria-expanded={active}
         aria-current={current ? "page" : undefined}
-        className={`flex items-center gap-1 py-2 text-[15px] font-medium transition-colors ${
+        className={`link-underline flex items-center gap-1 py-2 text-[15px] font-medium transition-colors ${
           current ? "text-accent" : active ? "text-ink" : "text-ink-soft hover:text-ink"
         }`}
       >
@@ -185,8 +185,8 @@ export function Header() {
               <span className="font-serif text-[22px] font-semibold tracking-tight">
                 Hidayatullah
               </span>
-              <span className="mt-0.5 text-[9.5px] font-bold uppercase tracking-[0.28em] text-accent">
-                Media Network
+              <span className="mt-0.5 whitespace-nowrap text-[8.5px] font-bold uppercase tracking-[0.14em] text-accent">
+                Membangun Peradaban Islam
               </span>
             </span>
           </Link>

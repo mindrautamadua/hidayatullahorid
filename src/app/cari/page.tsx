@@ -34,7 +34,7 @@ export default async function CariPage({
               Pencarian
             </h1>
             <p className="mb-8 mt-3 text-[16px] text-ink-soft">
-              Telusuri seluruh berita, kajian, dan artikel Hidayatullah Media Network.
+              Telusuri seluruh berita, kajian, dan artikel Hidayatullah.
             </p>
             <div className="max-w-2xl">
               <SearchBox initial={term} />

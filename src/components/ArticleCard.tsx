@@ -46,7 +46,7 @@ export function ArticleCard({ a, priority = false }: { a: Article; priority?: bo
       <div className="pt-4">
         <span className="cat-tag">{a.rubrik}</span>
         <h3 className="mt-2.5 font-serif text-[20px] font-semibold leading-[1.18] tracking-[-0.015em]">
-          <Link href={articleHref(a)} className="transition-colors hover:text-accent">
+          <Link href={articleHref(a)} className="link-underline transition-colors hover:text-accent">
             {a.title}
           </Link>
         </h3>

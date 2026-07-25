@@ -15,6 +15,7 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { ShareBar } from "@/components/ShareBar";
 import { rubrikHref, authorHref } from "@/lib/content";
 import { getAllArticles, getArticle, getRelatedArticles } from "@/lib/source";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 export async function generateStaticParams() {
   const all = await getAllArticles();
@@ -48,12 +49,52 @@ export default async function ArtikelPage({
   const related = await getRelatedArticles(a.slug, a.rubrikSlug ?? a.rubrik, 3);
   const rubrikLabel = a.rubrik.split("·")[0].trim();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: a.title,
+    description: a.excerpt ?? a.title,
+    image: [a.img],
+    datePublished: a.dateISO,
+    dateModified: a.dateISO,
+    articleSection: rubrikLabel,
+    author: { "@type": "Person", name: a.author },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo-hidayatullah.png` },
+    },
+    mainEntityOfPage: `${SITE_URL}/artikel/${a.slug}`,
+    inLanguage: "id-ID",
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <Header />
 
       <main id="main-content">
-        <article className="mx-auto max-w-[760px] px-5 pt-10 md:px-6 md:pt-14">
+        <div className="article-shell px-5 pt-10 md:px-6 md:pt-14">
+        {/* Broadsheet side rail — sticky folio + vertical share (desktop only) */}
+        <aside className="article-rail">
+          <div className="rail-folio">{rubrikLabel}</div>
+          <div className="rule-gold mt-3" />
+          <p className="mt-4 flex items-center gap-1.5 text-[12.5px] text-ink-faint">
+            <Clock size={13} weight="bold" /> {a.readTime} mnt baca
+          </p>
+          <p className="mt-1 text-[12.5px] text-ink-faint">{a.time}</p>
+          <div className="mt-6">
+            <p className="mb-2.5 text-[10.5px] font-bold uppercase tracking-[0.18em] text-ink-faint">
+              Bagikan
+            </p>
+            <ShareBar title={a.title} vertical />
+          </div>
+        </aside>
+
+        <article>
           {/* Breadcrumb */}
           <nav className="mb-6 flex items-center gap-2 text-[13px] text-ink-faint">
             <Link href="/" className="hover:text-accent">Beranda</Link>
@@ -108,7 +149,7 @@ export default async function ArtikelPage({
                 <Image src={a.img} alt={a.title} fill priority sizes="(max-width: 768px) 100vw, 760px" className="object-cover" />
               </div>
               <figcaption className="mt-2.5 text-[12.5px] text-ink-faint">
-                {rubrikLabel} · Hidayatullah Media Network
+                {rubrikLabel} · Hidayatullah
               </figcaption>
             </figure>
           </Reveal>
@@ -120,7 +161,7 @@ export default async function ArtikelPage({
               dangerouslySetInnerHTML={{ __html: a.bodyHtml }}
             />
           ) : (
-            <div className="mt-9 font-serif text-[19px] leading-[1.75] text-ink [&>p]:mb-6 [&>p]:tracking-[-0.003em]">
+            <div className="dropcap mt-9 font-serif text-[19px] leading-[1.75] text-ink [&>p]:mb-6 [&>p]:tracking-[-0.003em]">
               {(a.bodyParagraphs ?? []).map((p, i) =>
                 p.startsWith('"') ? (
                   <blockquote
@@ -145,6 +186,7 @@ export default async function ArtikelPage({
             ))}
           </div>
         </article>
+        </div>
 
         {/* Related */}
         <section className="mx-auto mt-16 max-w-[1320px] border-t border-line px-5 py-14 md:px-6 md:py-16">

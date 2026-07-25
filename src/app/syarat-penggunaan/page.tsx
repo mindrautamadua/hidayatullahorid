@@ -3,7 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Syarat Penggunaan",
-  description: "Ketentuan penggunaan layanan dan konten Hidayatullah Media Network (hidayatullah.or.id).",
+  description: "Ketentuan penggunaan layanan dan konten Hidayatullah (hidayatullah.or.id).",
 };
 
 export default function Page() {
@@ -11,7 +11,7 @@ export default function Page() {
     <LegalPage
       title="Syarat Penggunaan"
       updated="1 Juli 2026"
-      intro="Dengan mengakses Hidayatullah Media Network (hidayatullah.or.id), Anda menyetujui ketentuan penggunaan berikut."
+      intro="Dengan mengakses Hidayatullah (hidayatullah.or.id), Anda menyetujui ketentuan penggunaan berikut."
       sections={[
         {
           heading: "Penggunaan Konten",
@@ -22,7 +22,7 @@ export default function Page() {
         {
           heading: "Hak Kekayaan Intelektual",
           body: [
-            "Seluruh materi — teks, gambar, logo, dan desain — merupakan milik Hidayatullah Media Network (hidayatullah.or.id) atau pihak yang memberikan lisensi, dan dilindungi undang-undang hak cipta.",
+            "Seluruh materi — teks, gambar, logo, dan desain — merupakan milik Hidayatullah (hidayatullah.or.id) atau pihak yang memberikan lisensi, dan dilindungi undang-undang hak cipta.",
           ],
         },
         {

@@ -5,6 +5,7 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
+import { LeaderAvatar } from "@/components/LeaderAvatar";
 
 export const metadata: Metadata = {
   title: "Tentang Hidayatullah",
@@ -19,13 +20,18 @@ const stats = [
   { value: "4", label: "Pilar khidmat" },
 ];
 
+// Susunan Dewan Pengurus Pusat (DPP) Hidayatullah periode 2025–2030,
+// hasil Munas VI (22 Oktober 2025). Taruh foto di public/pengurus/<slug>.jpg —
+// kartu otomatis menampilkan inisial selama foto belum ada.
 const leaders = [
-  { role: "Ketua Umum", name: "Dr. Nashirul Haq, Lc., M.A." },
-  { role: "Sekretaris Jenderal", name: "Ir. Asih Subagyo" },
-  { role: "Ketua Dewan Syariah", name: "KH. Hamim Thohari" },
-  { role: "Dewan Mudir", name: "Ust. Alimin Mukhtar, Lc." },
-  { role: "Ketua Bidang Dakwah", name: "Ust. Zulkifli Anwar" },
-  { role: "Ketua Bidang Pendidikan", name: "Dr. Abdul Ghofur Muzakki" },
+  { role: "Ketua Umum", name: "KH. Naspi Arsyad, Lc.", photo: "/pengurus/naspi-arsyad.jpg" },
+  { role: "Sekretaris Jenderal", name: "Dr. Nanang Noerpatria, S.Pd., M.Pd.I", photo: "/pengurus/nanang-noerpatria.jpg" },
+  { role: "Bendahara Umum", name: "Suwito Abdul Fatah, S.Pd., M.M", photo: "/pengurus/suwito-abdul-fatah.jpg" },
+  { role: "Ketua Bidang Pelayanan Ummat", name: "Shohibul Anwar, S.Pd., M.H.I", photo: "/pengurus/shohibul-anwar.jpg" },
+  { role: "Ketua Bidang Organisasi", name: "Dr. Dudung Amadung Abdullah, S.H., M.H", photo: "/pengurus/dudung-amadung-abdullah.jpg" },
+  { role: "Ketua Bidang Perkaderan & Pembinaan Anggota", name: "Dr. Abdul Ghofar Hadi, S.Sos.I., M.S.I", photo: "/pengurus/abdul-ghofar-hadi.jpg" },
+  { role: "Ketua Bidang Pendidikan", name: "Muzakkir Usman, M.Pd., Ph.D", photo: "/pengurus/muzakkir-usman.jpg" },
+  { role: "Ketua Bidang Ekonomi", name: "Drs. H. Wahyu Rahman, M.E", photo: "/pengurus/wahyu-rahman.jpg" },
 ];
 
 const programs = [
@@ -159,8 +165,8 @@ export default function TentangPage() {
           <SectionTitle kicker="Kepemimpinan" title="Dewan Pengurus Pusat" />
           <p className="mt-6 max-w-[760px] text-[16px] leading-relaxed text-ink-soft">
             Kepemimpinan Hidayatullah dijalankan secara kolektif melalui Dewan
-            Pengurus Pusat (DPP), dengan bimbingan Dewan Syariah dan Dewan Mudir
-            sebagai penjaga arah gerakan.
+            Pengurus Pusat (DPP) periode 2025–2030, di bawah bimbingan Rais &lsquo;Aam
+            dan Majelis Syura sebagai penjaga arah gerakan.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {leaders.map((m) => (
@@ -169,14 +175,7 @@ export default function TentangPage() {
                 className="rounded-[var(--radius-lg)] border border-line p-6"
               >
                 <div className="flex items-center gap-4">
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-accent font-serif text-[18px] font-semibold text-accent-ink">
-                    {m.name
-                      .replace(/^(Dr|Ir|KH|Ust)\.?\s+/i, "")
-                      .split(" ")
-                      .map((w) => w[0])
-                      .slice(0, 2)
-                      .join("")}
-                  </span>
+                  <LeaderAvatar name={m.name} photo={m.photo} />
                   <div>
                     <p className="text-[12px] font-bold uppercase tracking-wide text-accent">
                       {m.role}

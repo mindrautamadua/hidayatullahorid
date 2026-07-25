@@ -29,9 +29,9 @@ export function Masthead() {
           <h1 className="nameplate text-[13vw] leading-[0.85] sm:text-[64px] md:text-[88px] lg:text-[104px]">
             Hidayatullah
           </h1>
-          <p className="mt-2 flex items-center gap-3 text-[10.5px] font-bold uppercase tracking-[0.42em] text-ink-soft">
+          <p className="mt-2 flex items-center gap-3 text-[10.5px] font-bold uppercase tracking-[0.22em] text-ink-soft">
             <span className="hidden h-px w-8 bg-line-strong sm:inline-block" />
-            Media Network
+            Membangun Peradaban Islam
             <span className="hidden h-px w-8 bg-line-strong sm:inline-block" />
           </p>
         </div>

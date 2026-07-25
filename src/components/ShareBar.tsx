@@ -10,7 +10,7 @@ import {
   Check,
 } from "@phosphor-icons/react";
 
-export function ShareBar({ title }: { title: string }) {
+export function ShareBar({ title, vertical = false }: { title: string; vertical?: boolean }) {
   const [copied, setCopied] = useState(false);
 
   const currentUrl = () =>
@@ -48,7 +48,7 @@ export function ShareBar({ title }: { title: string }) {
     "grid h-9 w-9 place-items-center rounded-full border border-line text-ink-soft transition-colors hover:border-accent hover:text-accent active:scale-95";
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={vertical ? "flex flex-col items-start gap-2" : "flex items-center gap-2"}>
       <button onClick={nativeShare} aria-label="Bagikan" className={btn}>
         <ShareNetwork size={16} weight="bold" />
       </button>

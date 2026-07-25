@@ -3,7 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Disclaimer",
-  description: "Penafian atas informasi yang disajikan di Hidayatullah Media Network (hidayatullah.or.id).",
+  description: "Penafian atas informasi yang disajikan di Hidayatullah (hidayatullah.or.id).",
 };
 
 export default function Page() {

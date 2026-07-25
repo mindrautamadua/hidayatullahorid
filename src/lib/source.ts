@@ -1,6 +1,6 @@
 // ============================================================
 // Content source — live WordPress data layer for the
-// Hidayatullah Media Network (hidayatullah.or.id).
+// Hidayatullah (hidayatullah.or.id).
 //
 // Defaults to the live or.id WP REST API so the clone is populated
 // with real content out of the box. Override with WORDPRESS_API_URL.
@@ -145,6 +145,7 @@ function mapPost(p: WpPost): FullArticle {
     author: p._embedded?.author?.[0]?.name ?? "Redaksi",
     readTime: readingTime(p.content?.rendered ?? p.excerpt?.rendered ?? ""),
     time: relativeTime(p.date),
+    dateISO: p.date,
     img: media ?? `https://picsum.photos/seed/hid-${p.slug}/1200/800`,
     bodyHtml: p.content?.rendered,
   };

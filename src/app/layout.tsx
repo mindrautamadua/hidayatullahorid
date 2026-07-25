@@ -3,6 +3,7 @@ import { Libre_Franklin, Fraunces } from "next/font/google";
 import "./globals.css";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { InlineScript } from "@/components/InlineScript";
+import { SITE_URL } from "@/lib/site";
 
 const franklin = Libre_Franklin({
   variable: "--font-franklin",
@@ -19,19 +20,17 @@ const fraunces = Fraunces({
   weight: ["400", "500", "600", "700"],
 });
 
-const SITE = "https://hidayatullah.or.id";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Hidayatullah — Media Network | Berita, Dakwah, dan Peradaban Islam",
-    template: "%s · Hidayatullah Media Network",
+    default: "Hidayatullah — Membangun Peradaban Islam | Situs Resmi Organisasi",
+    template: "%s · Hidayatullah",
   },
   description:
     "Situs resmi Hidayatullah: berita nasional, antarbangsa, dan daerah; hikmah, kajian, khutbah Jumat, serta program dakwah, pendidikan, dan kemanusiaan lintas Nusantara.",
   keywords: [
     "hidayatullah",
-    "media network",
+    "peradaban islam",
     "berita islam",
     "dakwah",
     "hikmah",
@@ -41,14 +40,14 @@ export const metadata: Metadata = {
     "pesantren",
   ],
   openGraph: {
-    title: "Hidayatullah — Media Network",
+    title: "Hidayatullah — Membangun Peradaban Islam",
     description:
       "Situs resmi Hidayatullah: berita, hikmah, dakwah, dan program kemanusiaan lintas Nusantara dan dunia Islam.",
     type: "website",
     locale: "id_ID",
-    siteName: "Hidayatullah Media Network",
+    siteName: "Hidayatullah",
   },
-  applicationName: "Hidayatullah Media Network",
+  applicationName: "Hidayatullah",
   appleWebApp: {
     capable: true,
     title: "Hidayatullah",

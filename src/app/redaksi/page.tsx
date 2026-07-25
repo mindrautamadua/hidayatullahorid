@@ -6,7 +6,7 @@ import { PageHero } from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "Redaksi",
   description:
-    "Susunan redaksi Hidayatullah Media Network beserta pedoman peliputan dan tim editorial.",
+    "Susunan redaksi Hidayatullah beserta pedoman peliputan dan tim editorial.",
 };
 
 const board = [
@@ -36,7 +36,7 @@ export default function RedaksiPage() {
       <PageHero
         eyebrow="Editorial Board"
         title="Susunan Redaksi"
-        description="Tim editorial Hidayatullah Media Network yang menjaga kualitas, akurasi, dan adab peliputan di seluruh kanal media dakwah."
+        description="Tim editorial Hidayatullah yang menjaga kualitas, akurasi, dan adab peliputan di seluruh kanal media dakwah."
       />
 
       <main id="main-content" className="mx-auto max-w-[1320px] px-5 py-12 md:px-6 md:py-16">
@@ -70,7 +70,7 @@ export default function RedaksiPage() {
         <div className="mt-14 rounded-[var(--radius-lg)] bg-paper-raised border border-line p-8 md:p-10">
           <h2 className="font-serif text-[22px] font-semibold tracking-[-0.02em]">Pedoman Peliputan</h2>
           <p className="mt-3 max-w-[760px] text-[15px] leading-relaxed text-ink-soft">
-            Seluruh karya jurnalistik Hidayatullah Media Network tunduk pada Kode
+            Seluruh karya jurnalistik Hidayatullah tunduk pada Kode
             Etik Jurnalistik dan Pedoman Pemberitaan Media Siber. Kami berkomitmen
             melakukan verifikasi, menjaga keberimbangan, serta melayani hak jawab
             dan hak koreksi sesuai ketentuan yang berlaku.

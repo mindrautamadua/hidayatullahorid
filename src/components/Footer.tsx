@@ -66,8 +66,8 @@ export function Footer() {
                 <span className="font-serif text-[22px] font-semibold tracking-tight">
                   Hidayatullah
                 </span>
-                <span className="mt-0.5 text-[9.5px] font-bold uppercase tracking-[0.28em] text-accent">
-                  Media Network
+                <span className="mt-0.5 whitespace-nowrap text-[8.5px] font-bold uppercase tracking-[0.14em] text-accent">
+                  Membangun Peradaban Islam
                 </span>
               </span>
             </Link>
@@ -175,7 +175,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-[13px] text-ink-faint md:flex-row md:items-center">
-          <p>© 2026 Hidayatullah Media Network. Seluruh hak cipta dilindungi.</p>
+          <p>© 2026 Hidayatullah. Seluruh hak cipta dilindungi.</p>
           <div className="flex flex-wrap items-center gap-5">
             <Link href="/kebijakan-privasi" className="hover:text-ink">Kebijakan Privasi</Link>
             <Link href="/syarat-penggunaan" className="hover:text-ink">Syarat Penggunaan</Link>

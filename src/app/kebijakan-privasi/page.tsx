@@ -3,7 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Kebijakan Privasi",
-  description: "Kebijakan privasi Hidayatullah Media Network (hidayatullah.or.id) mengenai pengumpulan dan penggunaan data pengguna.",
+  description: "Kebijakan privasi Hidayatullah (hidayatullah.or.id) mengenai pengumpulan dan penggunaan data pengguna.",
 };
 
 export default function Page() {
